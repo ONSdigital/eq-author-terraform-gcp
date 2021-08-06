@@ -1,0 +1,15 @@
+# Setup
+- rename terraform.example.tfvars to terraform.tfvars
+- rename backend.example.tfvars to backend.tfvars
+- Create a project
+- Enable the cloud run api
+- Give the cloud run service account permissions to access the images
+- Enable the firestore api and select native mode
+- Create a bucket called <project_id>-tfstate and update backend.tfvars with bucketname
+- Enable secret manager and add application secrets for author (See below)
+- run "gcloud auth application-default login"
+- run "gcloud config set project <project_id>"
+- Update project id and bucket name in backend.tfvars and terraform.tfvars
+- Update the terraform.tfvars with your required variables
+- Run "terraform init -backend-config backend.tfvars"
+- Run "terraform apply -var-file terraform.tfvars"
