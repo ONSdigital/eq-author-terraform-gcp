@@ -9,9 +9,9 @@ the followng roles
 - Add the following secrets in secret manager
     - `react_app_firebase_project_id`
     - `react_app_firebase_api_key`
-- rename `backend.example.tfvars` to `backend.tfvars` and update the following
+- in either project-default or project prod rename `backend.example.tfvars` to `backend.tfvars` and update the following
     - bucket (The bucket for the state eg `<project_id>-terraform`)
-- rename `terraform.example.tfvars` to `terraform.tfvars` and update the following
+- in either project-default or project prod rename `terraform.example.tfvars` to `terraform.tfvars` and update the following
     - _PROJECT_ID (Your project id)
     - _REGION (eg. `europe-west2`)
     - _DOMAIN_PREFIX (This will be put before the domain names and should not already exist, eg. `dev`)
@@ -23,6 +23,12 @@ the followng roles
 - Run "terraform apply -var-file terraform.tfvars"
 - After completion, add DNS records to your DNS zone using the loadbalancer IP address
     - `<domain_prefix>.author.eqbs.gcp.onsdigital.uk`
+    - `<domain_prefix>.publisher.eqbs.gcp.onsdigital.uk`
+    - `<domain_prefix>.validator.eqbs.gcp.onsdigital.uk`
+    - `<domain_prefix>.registry.eqbs.gcp.onsdigital.uk`
+    - `<domain_prefix>.author-launcher.eqbs.gcp.onsdigital.uk`
+    - `<domain_prefix>.author-runner.eqbs.gcp.onsdigital.uk`
+    - `<domain_prefix>.extract-questions.eqbs.gcp.onsdigital.uk`
 
 # Configure cloud build pipeline and GCP project
 - Create a project
@@ -38,7 +44,7 @@ the followng roles
     - `react_app_firebase_project_id`
     - `react_app_firebase_api_key`
 - Create a bucket for the terraform state called `<project_id>-terraform`
-- Create a cloud build trigger, use this repo as the source and the cloudbuild.yaml in the repo root. Add the following environment varibles to the trigger
+- Create a cloud build trigger for this repo, set either cloudbuild.yaml or cloudbuild-prod.yaml for the env you want to build. Add the following environment varibles to the trigger
     - _BUCKET (The bucket to store the terraform state eg. `<project_id>-tfstate`)
     - _PREFIX (The folders path in the bucketfor the state eg. `terraform/state`) 
     - _PROJECT_ID (Your project id)
@@ -48,3 +54,10 @@ the followng roles
     - _DEV_IPS (an array of ip's eg. `[/'xxx.xxx.xxx.xxx/32/", /"xxx.xxx.xxx.xxx/32/" ]`)
 - Run the trigger
 - After completion, add DNS records to your DNS zone using the loadbalancer IP address
+    - `<domain_prefix>.author.eqbs.gcp.onsdigital.uk`
+    - `<domain_prefix>.publisher.eqbs.gcp.onsdigital.uk`
+    - `<domain_prefix>.validator.eqbs.gcp.onsdigital.uk`
+    - `<domain_prefix>.registry.eqbs.gcp.onsdigital.uk`
+    - `<domain_prefix>.author-launcher.eqbs.gcp.onsdigital.uk`
+    - `<domain_prefix>.author-runner.eqbs.gcp.onsdigital.uk`
+    - `<domain_prefix>.extract-questions.eqbs.gcp.onsdigital.uk`
