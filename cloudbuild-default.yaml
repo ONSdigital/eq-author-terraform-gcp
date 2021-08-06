@@ -20,3 +20,4 @@ steps:
         "developer_ips=$_DEVELOPER_IPS" -auto-approve
     id: tf apply
     entrypoint: sh
+timeout: 1200s
