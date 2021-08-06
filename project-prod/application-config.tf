@@ -127,7 +127,7 @@ locals {
                 "DATABASE"="firestore"
             }
             "secrets" = {
-                FIREBASE_PROJECT_ID=="react_app_firebase_project_id"
+                FIREBASE_PROJECT_ID="react_app_firebase_project_id"
             }
         },
 
