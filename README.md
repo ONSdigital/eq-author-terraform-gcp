@@ -17,6 +17,7 @@ the followng roles
     - _DOMAIN_PREFIX (This will be put before the domain names and should not already exist, eg. `dev`)
     - _ONS_IPS (an array of ip's eg. `[/'xxx.xxx.xxx.xxx/32/", /"xxx.xxx.xxx.xxx/32/" ]`)
     - _DEV_IPS (an array of ip's eg. `[/'xxx.xxx.xxx.xxx/32/", /"xxx.xxx.xxx.xxx/32/" ]`)
+- cd into either project-default or project prod
 - Run "gcloud auth application-default login"
 - Run "gcloud config set project <project_id>"
 - Run "terraform init -backend-config backend.tfvars"
@@ -32,7 +33,7 @@ the followng roles
 
 # Configure cloud build pipeline and GCP project
 - Create a project
-- Enable the API's `Cloud Run`, `Firestore`, `Secrets manager`, `Cloud Build`, `service usage api`
+- Enable the API's `Cloud Run`, `Firestore`, `Secrets manager`, `Cloud Build`, `service usage api`, `Cloud resource manager`
 - In the images project give Cloud Run Service Agent (`service-<project_number>@serverless-robot-prod.iam.gserviceaccount.com)` 
 the followng roles
     - `Storage object viewer`
