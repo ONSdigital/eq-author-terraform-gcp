@@ -4,10 +4,12 @@ variable "project_id" {
 
 variable "region" {
   description = "The the region to use"
+  default = "europe-west2"
 }
 
 variable "domain_prefix" {
   description = "the prefix to use for the urls"
+  default = "dev"
 }
 
 variable "ons_ips" {

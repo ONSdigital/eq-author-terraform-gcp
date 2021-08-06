@@ -1,0 +1,22 @@
+steps:
+  - name: 'hashicorp/terraform:1.0.0'
+    args:
+      - '-c'
+      - >
+        cd project-default
+
+        terraform init -backend-config "bucket=$_BUCKET" -backend-config
+        "prefix=$_PREFIX"|| exit 1 
+    id: tf init
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.0'
+    args:
+      - '-c'
+      - >
+        cd project-default
+
+        terraform apply  -var "project_id=$_PROJECT" -var "region=$_REGION" -var
+        "domain_prefix=$_DOMAIN_PREFIX" -var "ons_ips=$_ONS_IPS" -var
+        "developer_ips=$_DEVELOPER_IPS" -auto-approve|| exit 1
+    id: tf apply
+    entrypoint: sh

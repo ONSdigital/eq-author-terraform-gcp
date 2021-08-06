@@ -13,20 +13,20 @@ provider "google-beta" {
 }
 
 module "network" {
-  source        = "./network"
+  source        = "../network"
   project_id    = var.project_id
   region        = var.region
 }
 
 module "memorystore" {
-  source        = "./memorystore"
+  source        = "../memorystore"
   project_id    = var.project_id
   region        = var.region
   depends_on  = [module.network]
 }
 
 module "applications" {
-  source                        = "./applications"
+  source                        = "../applications"
   project_id                    = var.project_id
   region                        = var.region
   applications                  = local.applications
@@ -34,7 +34,7 @@ module "applications" {
 }
 
 module "cloud-armour" {
-  source        = "./cloud-armour"
+  source        = "../cloud-armour"
   project_id    = var.project_id
   nat_ip        = [module.network.nat_ip]
   ons_ips       = var.ons_ips
@@ -43,7 +43,7 @@ module "cloud-armour" {
 }
 
 module "load-balancer" {
-  source        = "./load-balancer"
+  source        = "../load-balancer"
   project_id    = var.project_id
   region        = var.region
   domains       = local.domains

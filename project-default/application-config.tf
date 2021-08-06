@@ -90,7 +90,7 @@ locals {
             name = "eq-author"
             image = "eu.gcr.io/ons-eqbs-images/eq-author:v1.4.17"
             container_port = "3000"
-            hosts = ["*.author.eqbs.gcp.onsdigital.uk","author.eqbs.gcp.onsdigital.uk"]
+            hosts = ["*.author.eqbs.gcp.onsdigital.uk"]
             default_service = "author"
             path_rules = [{
                 paths = ["/graphql","/signIn","/launch/*","/convert/*","/import","/export/*","/status"]
