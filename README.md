@@ -13,3 +13,4 @@
 - Update the terraform.tfvars with your required variables
 - Run "terraform init -backend-config backend.tfvars"
 - Run "terraform apply -var-file terraform.tfvars"
+- After completion, add DNS records to your DNS zone using the loadbalancer ip
