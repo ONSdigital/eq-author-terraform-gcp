@@ -32,7 +32,7 @@ the followng roles
 
 # Configure cloud build pipeline and GCP project
 - Create a project
-- Enable the API's `Cloud Run`, `Firestore`, `Secrets manager`
+- Enable the API's `Cloud Run`, `Firestore`, `Secrets manager`, `Cloud Build`
 - In the images project give Cloud Run Service Agent (`service-<project_number>@serverless-robot-prod.iam.gserviceaccount.com)` 
 the followng roles
     - `Storage object viewer`
@@ -61,3 +61,6 @@ the followng roles
     - `<domain_prefix>.author-launcher.eqbs.gcp.onsdigital.uk`
     - `<domain_prefix>.author-runner.eqbs.gcp.onsdigital.uk`
     - `<domain_prefix>.extract-questions.eqbs.gcp.onsdigital.uk`
+    
+    additional prod domain
+    - `author.eqbs.gcp.onsdigital.uk`
