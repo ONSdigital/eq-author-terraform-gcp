@@ -6,7 +6,7 @@ steps:
         cd project-prod
 
         terraform init -backend-config "bucket=$_BUCKET" -backend-config
-        "prefix=$_PREFIX"|| exit 1 
+        "prefix=$_PREFIX"
     id: tf init
     entrypoint: sh
   - name: 'hashicorp/terraform:1.0.0'
@@ -17,6 +17,6 @@ steps:
 
         terraform apply  -var "project_id=$_PROJECT" -var "region=$_REGION" -var
         "domain_prefix=$_DOMAIN_PREFIX" -var "ons_ips=$_ONS_IPS" -var
-        "developer_ips=$_DEVELOPER_IPS" -auto-approve|| exit 1
+        "developer_ips=$_DEVELOPER_IPS" -auto-approve
     id: tf apply
     entrypoint: sh
