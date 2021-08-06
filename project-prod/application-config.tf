@@ -117,7 +117,6 @@ locals {
             envs = {
                 ALLOWED_EMAIL_LIST="@ons.gov.uk,@ext.ons.gov.uk,@nisra.gov.uk"
                 ENABLE_IMPORT="true"
-                FIREBASE_PROJECT_ID="author-staging"
                 PUBLISHER_URL="https://${var.domain_prefix}.author.eqbs.gcp.onsdigital.uk/convert/"
                 CONVERSION_URL="https://${var.domain_prefix}.publisher.eqbs.gcp.onsdigital.uk/publish/"
                 RUNNER_SESSION_URL="https://${var.domain_prefix}.author-runner.eqbs.gcp.onsdigital.uk/session?token="
@@ -127,7 +126,9 @@ locals {
                 REDIS_PORT="6379"
                 "DATABASE"="firestore"
             }
-            "secrets" = {}
+            "secrets" = {
+                FIREBASE_PROJECT_ID=="react_app_firebase_project_id"
+            }
         },
 
         "extract-questions" = {
