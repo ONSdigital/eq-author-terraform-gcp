@@ -163,7 +163,9 @@ locals {
             hosts = ["*.validator.eqbs.gcp.onsdigital.uk"]
             default_service = "validator"
             path_rules = []
-            envs = {}
+            envs = {
+                REACT_APP_API_URL="/graphql"
+            }
             "secrets" = {}
         }
     }
