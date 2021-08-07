@@ -50,3 +50,12 @@ module "load-balancer" {
   applications  = local.applications
   depends_on    = [module.cloud-armour, module.applications]
 }
+
+module "dns" {
+  source                = "../dns"
+  domains               = local.domains
+  dns_project_id        = var.dns_project_id
+  managed_zone_name     = var.managed_zone_name
+  load_balancer_address = module.load-balancer.load_balancer_address
+  depends_on            = [module.load-balancer]
+}

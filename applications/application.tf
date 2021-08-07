@@ -5,7 +5,11 @@ resource "google_cloud_run_service" "default" {
     name     = each.value.name
     location = var.region
     project  = var.project_id
-
+    depends_on = [
+        google_project_iam_member.editor,
+        google_project_iam_member.secret_accessor,
+        google_project_iam_member.datastore_user,
+    ]
     template {
         spec {
             service_account_name = google_service_account.cloud_run_service_account.email

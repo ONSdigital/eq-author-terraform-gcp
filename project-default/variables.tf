@@ -21,3 +21,11 @@ variable "developer_ips" {
   description = "The IP address of the devs."
   type        = list(string)
 }
+
+variable "dns_project_id" {
+  description = "The ID of the DNS project"
+}
+
+variable "managed_zone_name" {
+  description = "The zone of the DNS project"
+}
