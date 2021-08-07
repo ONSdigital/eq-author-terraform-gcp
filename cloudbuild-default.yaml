@@ -5,6 +5,7 @@ steps:
       - >
         cd project-default
 
+        terraform init
         -backend-config "bucket=$_BUCKET" 
         -backend-config "prefix=$_PREFIX"
     id: tf init
