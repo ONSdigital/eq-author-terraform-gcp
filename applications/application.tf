@@ -15,6 +15,8 @@ resource "google_cloud_run_service" "default" {
             service_account_name = google_service_account.cloud_run_service_account.email
             containers {
                 image = each.value.image
+                args    = []
+                command = []
                 ports {
                     container_port = each.value.container_port
                 }
@@ -40,6 +42,7 @@ resource "google_cloud_run_service" "default" {
             }
         }
         metadata {
+            labels      = {}
             annotations = {
                 "autoscaling.knative.dev/maxScale"        = "100"
                 "run.googleapis.com/vpc-access-egress"    = "all-traffic"
