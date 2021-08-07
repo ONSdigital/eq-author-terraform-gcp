@@ -51,7 +51,7 @@ resource "google_cloud_run_service" "default" {
     metadata {
         annotations = {
             "run.googleapis.com/ingress" = "internal-and-cloud-load-balancing"
-            "run.googleapis.com/launch-stage" = "ALPHA"
+            "run.googleapis.com/launch-stage" = "BETA"
         }
     }
 
