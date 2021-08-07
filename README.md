@@ -4,6 +4,8 @@
 - In the images project give Cloud Run Service Agent (`service-<project_number>@serverless-robot-prod.iam.gserviceaccount.com)` 
 the followng roles
     - `Storage object viewer`
+- In the DNS project give your account (your email) these roles
+    - `DNS Administrator`
 - Select Firestore native mode in the firestore console
 - Create a bucket for the terraform state called `<project_id>-terraform`
 - Add the following secrets in secret manager
@@ -17,6 +19,8 @@ the followng roles
     - _DOMAIN_PREFIX (This will be put before the domain names and should not already exist, eg. `dev`)
     - _ONS_IPS (an array of ip's eg. `[/'xxx.xxx.xxx.xxx/32/", /"xxx.xxx.xxx.xxx/32/" ]`)
     - _DEV_IPS (an array of ip's eg. `[/'xxx.xxx.xxx.xxx/32/", /"xxx.xxx.xxx.xxx/32/" ]`)
+    - _DNS_PROJECT_ID (The name of the project hosting the DNS zone)
+    - _MANAGED_ZONE_NAME (The name of the managed DNS zone)
 - cd into either project-default or project prod
 - Run "gcloud auth application-default login"
 - Run "gcloud config set project <project_id>"
@@ -37,6 +41,8 @@ the followng roles
 - In the images project give Cloud Run Service Agent (`service-<project_number>@serverless-robot-prod.iam.gserviceaccount.com)` 
 the followng roles
     - `Storage object viewer`
+- In the DNS project give the Cloudbuild Account (`<project_number>@cloudbuild.gserviceaccount.com`) these roles
+    - `DNS Administrator`
 - Give Cloudbuild Account (`<project_number>@cloudbuild.gserviceaccount.com`) the following roles
     - `Editor`
     - `Project IAM Admin`
@@ -53,6 +59,9 @@ the followng roles
     - _DOMAIN_PREFIX (This will be put before the domain names, eg. `prod`, `preprod`, `staging`)
     - _ONS_IPS (an array of ip's eg. `[/'xxx.xxx.xxx.xxx/32/", /"xxx.xxx.xxx.xxx/32/" ]`)
     - _DEV_IPS (an array of ip's eg. `[/'xxx.xxx.xxx.xxx/32/", /"xxx.xxx.xxx.xxx/32/" ]`)
+    - _DNS_PROJECT_ID (The name of the project hosting the DNS zone)
+    - _MANAGED_ZONE_NAME (The name of the managed DNS zone)
+- cd into either project-default or project prod
 - Run the trigger
 - After completion, add DNS records to your DNS zone using the loadbalancer IP address
     - `<domain_prefix>.author.eqbs.gcp.onsdigital.uk`
