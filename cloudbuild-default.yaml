@@ -6,7 +6,7 @@ steps:
         cd project-default
 
         terraform init
-        -backend-config "bucket=$_BUCKET" 
+        -backend-config "bucket=$_BUCKET"
         -backend-config "prefix=$_PREFIX"
     id: tf init
     entrypoint: sh
@@ -16,14 +16,14 @@ steps:
       - >
         cd project-default
 
-        terraform apply  
-        -var "project_id=$_PROJECT" 
-        -var "region=$_REGION" 
-        -var "domain_prefix=$_DOMAIN_PREFIX" 
-        -var "ons_ips=$_ONS_IPS" 
-        -var "developer_ips=$_DEVELOPER_IPS" 
+        terraform apply
+        -var "project_id=$_PROJECT"
+        -var "region=$_REGION"
+        -var "domain_prefix=$_DOMAIN_PREFIX"
+        -var "ons_ips=$_ONS_IPS"
+        -var "developer_ips=$_DEVELOPER_IPS"
         -var "dns_project_id=$_DNS_PROJECT_ID"
-        -var "managed_zone_name=$_MANAGED_ZONE_NAME  
+        -var "managed_zone_name=$_MANAGED_ZONE_NAME"
         -auto-approve
     id: tf apply
     entrypoint: sh
