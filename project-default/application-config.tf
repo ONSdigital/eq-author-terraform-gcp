@@ -100,6 +100,7 @@ locals {
                 REACT_APP_API_URL="/graphql"
                 REACT_APP_SIGN_IN_URL="/signIn"
                 REACT_APP_LAUNCH_URL="/launch"
+                REACT_APP_FEATURE_FLAGS="hub"
             }
             "secrets" = {
                 REACT_APP_FIREBASE_PROJECT_ID="react_app_firebase_project_id"
