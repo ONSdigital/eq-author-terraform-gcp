@@ -16,5 +16,12 @@ resource "google_compute_forwarding_rule" "default" {
 resource "google_compute_target_https_proxy" "default" {
   name             = "author-target-proxy"
   url_map          = google_compute_url_map.default.id
+  ssl_policy       = google_compute_ssl_policy.default-ssl-policy.id
   ssl_certificates = values(google_compute_managed_ssl_certificate.default)[*].id
+}
+
+resource "google_compute_ssl_policy" "default-ssl-policy" {
+  name            = "author-ssl-policy"
+  profile         = "RESTRICTED"
+  min_tls_version = "TLS_1_2"
 }
