@@ -26,14 +26,6 @@ the followng roles
 - Run "gcloud config set project <project_id>"
 - Run "terraform init -backend-config backend.tfvars"
 - Run "terraform apply -var-file terraform.tfvars"
-- After completion, add DNS records to your DNS zone using the loadbalancer IP address
-    - `<domain_prefix>.author.eqbs.gcp.onsdigital.uk`
-    - `<domain_prefix>.publisher.eqbs.gcp.onsdigital.uk`
-    - `<domain_prefix>.validator.eqbs.gcp.onsdigital.uk`
-    - `<domain_prefix>.registry.eqbs.gcp.onsdigital.uk`
-    - `<domain_prefix>.author-launcher.eqbs.gcp.onsdigital.uk`
-    - `<domain_prefix>.author-runner.eqbs.gcp.onsdigital.uk`
-    - `<domain_prefix>.extract-questions.eqbs.gcp.onsdigital.uk`
 
 # Configure cloud build pipeline and GCP project
 - Create a project
@@ -63,14 +55,3 @@ the followng roles
     - _MANAGED_ZONE_NAME (The name of the managed DNS zone)
 - cd into either project-default or project prod
 - Run the trigger
-- After completion, add DNS records to your DNS zone using the loadbalancer IP address
-    - `<domain_prefix>.author.eqbs.gcp.onsdigital.uk`
-    - `<domain_prefix>.publisher.eqbs.gcp.onsdigital.uk`
-    - `<domain_prefix>.validator.eqbs.gcp.onsdigital.uk`
-    - `<domain_prefix>.registry.eqbs.gcp.onsdigital.uk`
-    - `<domain_prefix>.author-launcher.eqbs.gcp.onsdigital.uk`
-    - `<domain_prefix>.author-runner.eqbs.gcp.onsdigital.uk`
-    - `<domain_prefix>.extract-questions.eqbs.gcp.onsdigital.uk`
-
-    additional prod domain
-    - `author.eqbs.gcp.onsdigital.uk`
