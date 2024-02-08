@@ -20,9 +20,13 @@ module "vpc" {
     routing_mode = "REGIONAL"
     subnets = [
         {
-            subnet_name   = "subnet-serverless-access"
-            subnet_ip     = "10.120.16.0/28"
-            subnet_region = var.region
+            subnet_name               = "subnet-serverless-access"
+            subnet_ip                 = "10.120.16.0/28"
+            subnet_region             = var.region
+            subnet_flow_logs          = "true"
+            subnet_flow_logs_interval = "INTERVAL_5_SEC"
+            subnet_flow_logs_sampling = 0.5
+            subnet_flow_logs_metadata = "INCLUDE_ALL_METADATA"
         }
     ]
     depends_on = [module.project-services]
