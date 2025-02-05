@@ -29,3 +29,7 @@ variable "dns_project_id" {
 variable "managed_zone_name" {
   description = "The zone of the DNS project"
 }
+
+variable "application_image_repository" {
+  description = "The repository containing the application images"
+}

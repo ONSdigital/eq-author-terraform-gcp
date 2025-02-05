@@ -12,7 +12,7 @@ locals {
     applications = {
         "runner" = {
             name = "eq-author-runner"
-            image = "eu.gcr.io/ons-eqbs-images/eq-author-runner:v3.79.0"
+            image = "${var.application_image_repository}/eq-author-runner:v14.9.1"
             container_port = "5000"
             hosts = ["*.author-runner.eqbs.gcp.onsdigital.uk"]
             default_service = "runner"
@@ -60,7 +60,7 @@ locals {
 
         "launcher" = {
             name = "eq-author-launcher"
-            image = "eu.gcr.io/ons-eqbs-images/eq-author-launcher:v1.3.0"
+            image = "${var.application_image_repository}/eq-author-launcher:d231337"
             container_port = "8000"
             hosts = ["*.author-launcher.eqbs.gcp.onsdigital.uk"]
             default_service = "launcher"
@@ -74,7 +74,7 @@ locals {
 
         "registry" = {
             name = "eq-questionnaire-registry"
-            image = "eu.gcr.io/ons-eqbs-images/eq-questionnaire-registry:4a16885"
+            image = "${var.application_image_repository}/eq-questionnaire-registry:aae9dbf"
             container_port = "8080"
             hosts = ["*.registry.eqbs.gcp.onsdigital.uk"]
             default_service = "registry"
@@ -88,7 +88,7 @@ locals {
 
         "author" = {
             name = "eq-author"
-            image = "eu.gcr.io/ons-eqbs-images/eq-author:v1.4.17"
+            image = "${var.application_image_repository}/eq-author:v3.0.51"
             container_port = "3000"
             hosts = ["*.author.eqbs.gcp.onsdigital.uk"]
             default_service = "author"
@@ -110,7 +110,7 @@ locals {
 
         "author-api" = {
             name = "eq-author-api"
-            image = "eu.gcr.io/ons-eqbs-images/eq-author-api:v1.4.17"
+            image = "${var.application_image_repository}/eq-author-api:v3.0.51"
             container_port = "4000"
             hosts = ["*.author-api.eqbs.gcp.onsdigital.uk"]
             default_service = "author-api"
@@ -134,8 +134,8 @@ locals {
 
         "extract-questions" = {
             name = "eq-extract-questions"
-            image = "eu.gcr.io/ons-eqbs-images/eq-extract-questions:0a438fe"
-            container_port = "3000"
+            image = "${var.application_image_repository}/eq-extract-questions:v0.0.12"
+            container_port = "3050"
             hosts = ["*.extract-questions.eqbs.gcp.onsdigital.uk"]
             default_service = "extract-questions"
             path_rules = []
@@ -148,7 +148,7 @@ locals {
 
         "publisher" = {
             name = "eq-publisher"
-            image = "eu.gcr.io/ons-eqbs-images/eq-publisher:v1.0.3"
+            image = "${var.application_image_repository}/eq-publisher:v1.0.78"
             container_port = "9000"
             hosts = ["*.publisher.eqbs.gcp.onsdigital.uk"]
             default_service = "publisher"
@@ -159,7 +159,7 @@ locals {
 
         "validator" = {
             name = "eq-questionnaire-validator"
-            image = "eu.gcr.io/ons-eqbs-images/eq-questionnaire-validator:5e4ee78"
+            image = "${var.application_image_repository}/eq-questionnaire-validator:f99d228"
             container_port = "5000"
             hosts = ["*.validator.eqbs.gcp.onsdigital.uk"]
             default_service = "validator"

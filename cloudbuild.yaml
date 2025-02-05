@@ -17,6 +17,7 @@ steps:
         -var "developer_ips=$_DEVELOPER_IPS"
         -var "dns_project_id=$_DNS_PROJECT_ID"
         -var "managed_zone_name=$_MANAGED_ZONE_NAME"
+        -var "application_image_repository=$_APPLICATION_IMAGE_REPOSITORY"
         -auto-approve
     id: tf apply
     entrypoint: sh

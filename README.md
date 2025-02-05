@@ -21,6 +21,7 @@ the followng roles
     - _DEV_IPS (an array of ip's eg. `[/'xxx.xxx.xxx.xxx/32/", /"xxx.xxx.xxx.xxx/32/" ]`)
     - _DNS_PROJECT_ID (The name of the project hosting the DNS zone)
     - _MANAGED_ZONE_NAME (The name of the managed DNS zone)
+    - _APPLICATION_IMAGE_REPOSITORY
 - cd into either project-default or project prod
 - Run "gcloud auth application-default login"
 - Run "gcloud config set project <project_id>"
@@ -53,5 +54,6 @@ the followng roles
     - _DEV_IPS (an array of ip's eg. `[/'xxx.xxx.xxx.xxx/32/", /"xxx.xxx.xxx.xxx/32/" ]`)
     - _DNS_PROJECT_ID (The name of the project hosting the DNS zone)
     - _MANAGED_ZONE_NAME (The name of the managed DNS zone)
+    - _APPLICATION_IMAGE_REPOSITORY
 - cd into either project-default or project prod
 - Run the trigger
