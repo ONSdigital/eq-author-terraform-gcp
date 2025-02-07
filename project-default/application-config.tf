@@ -3,6 +3,7 @@ locals {
         author = ["${var.domain_prefix}.author.eqbs.gcp.onsdigital.uk"]
         publisher = ["${var.domain_prefix}.publisher.eqbs.gcp.onsdigital.uk"]
         validator = ["${var.domain_prefix}.validator.eqbs.gcp.onsdigital.uk"]
+        validator-ajv = ["${var.domain_prefix}.validator-ajv.eqbs.gcp.onsdigital.uk"]
         registry = ["${var.domain_prefix}.registry.eqbs.gcp.onsdigital.uk"]
         launcher = ["${var.domain_prefix}.author-launcher.eqbs.gcp.onsdigital.uk"]
         runner = ["${var.domain_prefix}.author-runner.eqbs.gcp.onsdigital.uk"]
@@ -157,6 +158,17 @@ locals {
             "secrets" = {}
         },
 
+        "validator-ajv" = {
+            name = "eq-questionnaire-validator-ajv"
+            image = "${var.application_image_repository}/eq-questionnaire-validator-ajv:f99d228"
+            container_port = "5002"
+            hosts = ["*.validator-ajv.eqbs.gcp.onsdigital.uk"]
+            default_service = "validator-ajv"
+            path_rules = []
+            envs = {}
+            "secrets" = {}
+        },
+
         "validator" = {
             name = "eq-questionnaire-validator"
             image = "${var.application_image_repository}/eq-questionnaire-validator:f99d228"
@@ -164,7 +176,9 @@ locals {
             hosts = ["*.validator.eqbs.gcp.onsdigital.uk"]
             default_service = "validator"
             path_rules = []
-            envs = {}
+            envs = {
+                AJV_HOST="https://${var.domain_prefix}.validator-ajv.eqbs.gcp.onsdigital.uk"
+            }
             "secrets" = {}
         }
     }
