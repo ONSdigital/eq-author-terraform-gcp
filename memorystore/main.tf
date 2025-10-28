@@ -6,7 +6,7 @@ module "memorystore" {
     name                      = "author-redis"
     project                   = var.project_id
     authorized_network        = "author-vpc"
-    redis_version             = "REDIS_5_0"
+    redis_version             = "REDIS_7_2"
     memory_size_gb            = "1"
     tier                      = "BASIC"
     enable_apis               = "true"
