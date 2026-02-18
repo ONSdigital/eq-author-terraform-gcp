@@ -1,7 +1,7 @@
 
 module "memorystore" {
     source  = "terraform-google-modules/memorystore/google"
-    version = "~> 6.0"
+    version = "~> 15.2.1"
 
     name                      = "author-redis"
     project_id                = var.project_id
