@@ -11,7 +11,7 @@ resource "google_cloud_run_v2_service" "default" {
     google_project_iam_member.datastore_user,
   ]
   invoker_iam_disabled = true
-  ingress = "internal-and-cloud-load-balancing"
+  ingress = "INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER"
   launch_stage = "BETA"
   template {
     service_account = google_service_account.cloud_run_service_account.email
