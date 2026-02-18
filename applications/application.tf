@@ -11,6 +11,7 @@ resource "google_cloud_run_v2_service" "default" {
     google_project_iam_member.datastore_user,
   ]
   invoker_iam_disabled = true
+  deletion_protection = false
   ingress = "INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER"
   launch_stage = "BETA"
   template {
