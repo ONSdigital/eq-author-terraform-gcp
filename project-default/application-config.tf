@@ -13,11 +13,13 @@ locals {
     applications = {
         "runner" = {
             name = "eq-author-runner"
-            image = "${var.application_image_repository}/eq-author-runner:v14.9.1"
+            image = "${var.application_image_repository}/eq-author-runner:v14.14.20"
             container_port = "5000"
             hosts = ["*.author-runner.eqbs.gcp.onsdigital.uk"]
             default_service = "runner"
             path_rules = []
+            memory = "1Gi"
+            cpu = "1"
             envs = {
                 EQ_STORAGE_BACKEND="datastore"
                 EQ_REDIS_HOST="${module.memorystore.host}"
@@ -55,17 +57,24 @@ locals {
                 WEB_SERVER_UWSGI_ASYNC_CORES="10"
                 GUNICORN_CMD_ARGS="-c gunicorn_config.py"
                 DATASTORE_USE_GRPC="False"
+                OIDC_TOKEN_BACKEND="GCP"
             }
-            "secrets" = {}
+            "secrets" = {
+                SDS_OAUTH2_CLIENT_ID="SDS_OAUTH2_CLIENT_ID"
+                SDS_API_BASE_URL="SDS_API_BASE_URL"
+                CIR_OAUTH2_CLIENT_ID="CIR_OAUTH2_CLIENT_ID"
+            }
         },
 
         "launcher" = {
             name = "eq-author-launcher"
-            image = "${var.application_image_repository}/eq-author-launcher:d231337"
+            image = "${var.application_image_repository}/eq-author-launcher:1391a8e"
             container_port = "8000"
             hosts = ["*.author-launcher.eqbs.gcp.onsdigital.uk"]
             default_service = "launcher"
             path_rules = []
+            memory = "512Mi"
+            cpu = "1"
             envs = {
                 SURVEY_RUNNER_SCHEMA_URL="https://${var.domain_prefix}.author-runner.eqbs.gcp.onsdigital.uk"
                 SURVEY_RUNNER_URL="https://${var.domain_prefix}.author-runner.eqbs.gcp.onsdigital.uk"
@@ -80,6 +89,8 @@ locals {
             hosts = ["*.registry.eqbs.gcp.onsdigital.uk"]
             default_service = "registry"
             path_rules = []
+            memory = "512Mi"
+            cpu = "1"
             envs = {
                 REGISTRY_DATABASE_SOURCE="firestore"
                 PUBLISHER_URL="https://${var.domain_prefix}.author.eqbs.gcp.onsdigital.uk/convert/"
@@ -89,7 +100,7 @@ locals {
 
         "author" = {
             name = "eq-author"
-            image = "${var.application_image_repository}/eq-author:v3.0.51"
+            image = "${var.application_image_repository}/eq-author:v3.0.54"
             container_port = "3000"
             hosts = ["*.author.eqbs.gcp.onsdigital.uk"]
             default_service = "author"
@@ -97,25 +108,38 @@ locals {
                 paths = ["/graphql","/signIn","/launch/*","/convert/*","/import","/export/*","/status"]
                 service = "author-api"
             }]
+            memory = "512Mi"
+            cpu = "1"
             "envs" = {
                 REACT_APP_API_URL="/graphql"
                 REACT_APP_SIGN_IN_URL="/signIn"
                 REACT_APP_LAUNCH_URL="/launch"
-                REACT_APP_FEATURE_FLAGS="hub"
+                REACT_APP_FEATURE_FLAGS="pipeCalculatedSummary,hub,contactDetails,submissionPage,enableCountCondition,removedThemes,lists,gcp,dataset,repeatingIndividualAnswers,publishPage"
+                REACT_APP_VALID_EMAIL_DOMAINS="@ons.gov.uk,@ext.ons.gov.uk"
+                REACT_APP_ORGANISATION_ABBR="ONS"
+                REACT_APP_EXTRACTION_URL="https://${var.domain_prefix}.extract-questions.eqbs.gcp.onsdigital.uk/preview"
             }
             "secrets" = {
                 REACT_APP_FIREBASE_PROJECT_ID="react_app_firebase_project_id"
                 REACT_APP_FIREBASE_API_KEY="react_app_firebase_api_key"
+                REACT_APP_GTM_ID="REACT_APP_GTM_ID"
+                REACT_APP_FULLSTORY_ORG="REACT_APP_FULLSTORY_ORG"
+                REACT_APP_GTM_AUTH="REACT_APP_GTM_AUTH"
+                REACT_APP_GTM_PREVIEW="REACT_APP_GTM_PREVIEW"
+                REACT_APP_SENTRY_DSN="REACT_APP_SENTRY_DSN"
+                REACT_APP_HOT_JAR_ID="REACT_APP_HOT_JAR_ID"
             }
         },
 
         "author-api" = {
             name = "eq-author-api"
-            image = "${var.application_image_repository}/eq-author-api:v3.0.51"
+            image = "${var.application_image_repository}/eq-author-api:v3.0.54"
             container_port = "4000"
             hosts = ["*.author-api.eqbs.gcp.onsdigital.uk"]
             default_service = "author-api"
             path_rules = []
+            memory = "512Mi"
+            cpu = "1"
             envs = {
                 ALLOWED_EMAIL_LIST="@ons.gov.uk,@ext.ons.gov.uk,@nisra.gov.uk"
                 ENABLE_IMPORT="true"
@@ -126,10 +150,15 @@ locals {
                 CORS_WHITELIST="https://${var.domain_prefix}.author.eqbs.gcp.onsdigital.uk"
                 REDIS_DOMAIN_NAME="${module.memorystore.host}"
                 REDIS_PORT="6379"
-                "DATABASE"="firestore"
+                DATABASE="firestore"
+                FEATURE_FLAGS="gcp.hub"
             }
             "secrets" = {
                 FIREBASE_PROJECT_ID="react_app_firebase_project_id"
+                SUPPLEMENTARY_DATA_GATEWAY="SUPPLEMENTARY_DATA_GATEWAY"
+                SUPPLEMENTARY_DATA_GATEWAY_AUDIENCE="SUPPLEMENTARY_DATA_GATEWAY_AUDIENCE"
+                CIR_PUBLISH_SCHEMA_GATEWAY="CIR_PUBLISH_SCHEMA_GATEWAY"
+                CIR_PUBLISH_SCHEMA_GATEWAY_AUDIENCE="CIR_PUBLISH_SCHEMA_GATEWAY_AUDIENCE"
             }
         },
 
@@ -140,6 +169,8 @@ locals {
             hosts = ["*.extract-questions.eqbs.gcp.onsdigital.uk"]
             default_service = "extract-questions"
             path_rules = []
+            memory = "512Mi"
+            cpu = "1"
             envs = {
                 AUTHOR_SCHEMA_URL="https://prod-author.prod.eq.ons.digital/export/"
                 RUNNER_SCHEMA_URL="https://prod-publisher.prod.eq.ons.digital/publish/"
@@ -149,35 +180,41 @@ locals {
 
         "publisher" = {
             name = "eq-publisher"
-            image = "${var.application_image_repository}/eq-publisher:v1.0.78"
+            image = "${var.application_image_repository}/eq-publisher:v1.0.82"
             container_port = "9000"
             hosts = ["*.publisher.eqbs.gcp.onsdigital.uk"]
             default_service = "publisher"
             path_rules = []
+            memory = "512Mi"
+            cpu = "1"
             envs = {}
             "secrets" = {}
         },
 
         "validator-ajv" = {
             name = "eq-questionnaire-validator-ajv"
-            image = "${var.application_image_repository}/eq-questionnaire-validator-ajv:f99d228"
+            image = "${var.application_image_repository}/eq-questionnaire-validator-ajv:v9.5.1"
             container_port = "5002"
             hosts = ["*.validator-ajv.eqbs.gcp.onsdigital.uk"]
             default_service = "validator-ajv"
             path_rules = []
+            memory = "512Mi"
+            cpu = "1"
             envs = {}
             "secrets" = {}
         },
 
         "validator" = {
             name = "eq-questionnaire-validator"
-            image = "${var.application_image_repository}/eq-questionnaire-validator:f99d228"
+            image = "${var.application_image_repository}/eq-questionnaire-validator:v9.5.1"
             container_port = "5000"
             hosts = ["*.validator.eqbs.gcp.onsdigital.uk"]
             default_service = "validator"
             path_rules = []
+            memory = "512Mi"
+            cpu = "1"
             envs = {
-                AJV_HOST="https://${var.domain_prefix}.validator-ajv.eqbs.gcp.onsdigital.uk"
+                AJV_VALIDATOR_URL="https://${var.domain_prefix}.validator-ajv.eqbs.gcp.onsdigital.uk"
             }
             "secrets" = {}
         }

@@ -9,7 +9,7 @@ steps:
         -backend-config "bucket=$_BUCKET"
         -backend-config "prefix=$_PREFIX"
 
-        terraform apply
+        terraform plan
         -var "project_id=$_PROJECT"
         -var "region=$_REGION"
         -var "domain_prefix=$_DOMAIN_PREFIX"
@@ -18,8 +18,7 @@ steps:
         -var "dns_project_id=$_DNS_PROJECT_ID"
         -var "managed_zone_name=$_MANAGED_ZONE_NAME"
         -var "application_image_repository=$_APPLICATION_IMAGE_REPOSITORY"
-        -auto-approve
-    id: tf apply
+    id: tf plan
     entrypoint: sh
 timeout: 1200s
 options:
