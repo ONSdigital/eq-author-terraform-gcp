@@ -1,5 +1,6 @@
 terraform {
   backend "gcs" {}
+  required_version = "~> 1.5.7"
 }
 
 provider "google" {
