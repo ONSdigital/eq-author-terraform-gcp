@@ -43,7 +43,6 @@ resource "google_vpc_access_connector" "connector" {
     machine_type    = "e2-micro"
     min_instances   = 2
     max_instances   = 10
-    max_throughput  = 1000
     depends_on      = [module.project-services, module.vpc]
 }
 
