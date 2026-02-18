@@ -122,6 +122,12 @@ locals {
             "secrets" = {
                 REACT_APP_FIREBASE_PROJECT_ID="react_app_firebase_project_id"
                 REACT_APP_FIREBASE_API_KEY="react_app_firebase_api_key"
+                REACT_APP_GTM_ID="REACT_APP_GTM_ID"
+                REACT_APP_FULLSTORY_ORG="REACT_APP_FULLSTORY_ORG"
+                REACT_APP_GTM_AUTH="REACT_APP_GTM_AUTH"
+                REACT_APP_GTM_PREVIEW="REACT_APP_GTM_PREVIEW"
+                REACT_APP_SENTRY_DSN="REACT_APP_SENTRY_DSN"
+                REACT_APP_HOT_JAR_ID="REACT_APP_HOT_JAR_ID"
             }
         },
 
@@ -149,6 +155,10 @@ locals {
             }
             "secrets" = {
                 FIREBASE_PROJECT_ID="react_app_firebase_project_id"
+                SUPPLEMENTARY_DATA_GATEWAY="SUPPLEMENTARY_DATA_GATEWAY"
+                SUPPLEMENTARY_DATA_GATEWAY_AUDIENCE="SUPPLEMENTARY_DATA_GATEWAY_AUDIENCE"
+                CIR_PUBLISH_SCHEMA_GATEWAY="CIR_PUBLISH_SCHEMA_GATEWAY"
+                CIR_PUBLISH_SCHEMA_GATEWAY_AUDIENCE="CIR_PUBLISH_SCHEMA_GATEWAY_AUDIENCE"
             }
         },
 
