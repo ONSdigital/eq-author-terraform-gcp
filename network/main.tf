@@ -1,7 +1,7 @@
 
 module "project-services" {
   source  = "terraform-google-modules/project-factory/google//modules/project_services"
-  version = "~> 10.0"
+  version = "~> 18.1.0"
 
   project_id = var.project_id
 
@@ -14,7 +14,7 @@ module "project-services" {
 
 module "vpc" {
     source  = "terraform-google-modules/network/google"
-    version = "~> 5.2"
+    version = "~> 15.1"
     project_id   = var.project_id
     network_name = "author-vpc"
     routing_mode = "REGIONAL"
