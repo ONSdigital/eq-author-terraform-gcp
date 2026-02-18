@@ -51,7 +51,7 @@ resource "google_cloud_run_v2_service" "default" {
 
     vpc_access {
       egress = "ALL_TRAFFIC"
-      connector = "author-serverless-conn"
+      connector = var.connector_id
     }
 
     scaling {

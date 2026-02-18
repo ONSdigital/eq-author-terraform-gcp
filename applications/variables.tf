@@ -9,3 +9,6 @@ variable "region" {
 variable "applications" {
   description = "Application configurations"
 }
+variable "connector_id" {
+  description = "The ID of the VPC Access Connector"
+}

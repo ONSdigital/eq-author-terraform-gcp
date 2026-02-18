@@ -31,6 +31,7 @@ module "applications" {
   project_id                    = var.project_id
   region                        = var.region
   applications                  = local.applications
+  connector_id                  = module.network.vpc_connector_id
   depends_on                    = [module.network, module.memorystore]
 }
 
