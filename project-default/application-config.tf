@@ -57,7 +57,7 @@ locals {
                 WEB_SERVER_UWSGI_ASYNC_CORES="10"
                 GUNICORN_CMD_ARGS="-c gunicorn_config.py"
                 DATASTORE_USE_GRPC="False"
-                OIDC_TOKEN_BACKEND="GCP"
+                OIDC_TOKEN_BACKEND="gcp"
             }
             "secrets" = {
                 SDS_OAUTH2_CLIENT_ID="SDS_OAUTH2_CLIENT_ID"
