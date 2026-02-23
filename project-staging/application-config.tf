@@ -1,6 +1,6 @@
 locals {
     domains = {
-        author = ["${var.domain_prefix}.author.eqbs.gcp.onsdigital.uk","author.eqbs.gcp.onsdigital.uk"]
+        author = ["${var.domain_prefix}.author.eqbs.gcp.onsdigital.uk"]
         publisher = ["${var.domain_prefix}.publisher.eqbs.gcp.onsdigital.uk"]
         validator = ["${var.domain_prefix}.validator.eqbs.gcp.onsdigital.uk"]
         validator-ajv = ["${var.domain_prefix}.validator-ajv.eqbs.gcp.onsdigital.uk"]
@@ -102,7 +102,7 @@ locals {
             name = "eq-author"
             image = "${var.application_image_repository}/eq-author:v3.0.54"
             container_port = "3000"
-            hosts = ["*.author.eqbs.gcp.onsdigital.uk","author.eqbs.gcp.onsdigital.uk"]
+            hosts = ["*.author.eqbs.gcp.onsdigital.uk"]
             default_service = "author"
             path_rules = [{
                 paths = ["/graphql","/signIn","/launch/*","/convert/*","/import","/export/*","/status"]
@@ -123,11 +123,6 @@ locals {
                 REACT_APP_FIREBASE_PROJECT_ID="react_app_firebase_project_id"
                 REACT_APP_FIREBASE_API_KEY="react_app_firebase_api_key"
                 REACT_APP_GTM_ID="REACT_APP_GTM_ID"
-                REACT_APP_FULLSTORY_ORG="REACT_APP_FULLSTORY_ORG"
-                REACT_APP_GTM_AUTH="REACT_APP_GTM_AUTH"
-                REACT_APP_GTM_PREVIEW="REACT_APP_GTM_PREVIEW"
-                REACT_APP_SENTRY_DSN="REACT_APP_SENTRY_DSN"
-                REACT_APP_HOT_JAR_ID="REACT_APP_HOT_JAR_ID"
             }
         },
 
@@ -185,6 +180,8 @@ locals {
             hosts = ["*.publisher.eqbs.gcp.onsdigital.uk"]
             default_service = "publisher"
             path_rules = []
+            memory = "512Mi"
+            cpu = "1"
             envs = {}
             "secrets" = {}
         },
@@ -212,7 +209,7 @@ locals {
             memory = "512Mi"
             cpu = "1"
             envs = {
-                AJV_HOST="https://${var.domain_prefix}.validator-ajv.eqbs.gcp.onsdigital.uk"
+                AJV_VALIDATOR_URL="https://${var.domain_prefix}.validator-ajv.eqbs.gcp.onsdigital.uk"
             }
             "secrets" = {}
         }

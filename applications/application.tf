@@ -1,87 +1,70 @@
 
-resource "google_cloud_run_service" "default" {
-    provider = google-beta
-    for_each = var.applications
-    name     = each.value.name
-    location = var.region
-    project  = var.project_id
-    depends_on = [
-        google_project_iam_member.editor,
-        google_project_iam_member.secret_accessor,
-        google_project_iam_member.datastore_user,
-    ]
-    template {
-        spec {
-            service_account_name = google_service_account.cloud_run_service_account.email
-            containers {
-                image = each.value.image
-                args    = []
-                command = []
-                ports {
-                    container_port = each.value.container_port
-                }
-                dynamic "env" {
-                    for_each = each.value.envs
-                    content {
-                        name = env.key
-                        value = env.value
-                    }
-                }
-                dynamic "env" {
-                    for_each = each.value.secrets
-                    content {
-                        name = env.key
-                        value_from {
-                            secret_key_ref {
-                                name = env.value
-                                key = "latest"
-                            }
-                        }
-                    }
-                }
+resource "google_cloud_run_v2_service" "default" {
+  provider = google-beta
+  for_each = var.applications
+  name     = each.value.name
+  location = var.region
+  project  = var.project_id
+  depends_on = [
+    google_project_iam_member.editor,
+    google_project_iam_member.secret_accessor,
+    google_project_iam_member.datastore_user,
+  ]
+  invoker_iam_disabled = true
+  deletion_protection = false
+  ingress = "INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER"
+  launch_stage = "BETA"
+  template {
+    service_account = google_service_account.cloud_run_service_account.email
+    containers {
+      image   = each.value.image
+      args    = []
+      command = []
+      ports {
+        container_port = each.value.container_port
+      }
+      resources {
+        limits = {
+          cpu    = each.value.cpu
+          memory = each.value.memory
+        }
+      }
+      dynamic "env" {
+        for_each = each.value.envs
+        content {
+          name  = env.key
+          value = env.value
+        }
+      }
+      dynamic "env" {
+        for_each = each.value.secrets
+        content {
+          name = env.key
+          value_source {
+            secret_key_ref {
+              secret  = env.value
+              version = "latest"
             }
+          }
         }
-        metadata {
-            labels      = {}
-            annotations = {
-                "autoscaling.knative.dev/maxScale"        = "100"
-                "run.googleapis.com/vpc-access-egress"    = "all-traffic"
-                "run.googleapis.com/vpc-access-connector" = "author-serverless-conn"
-            }
-        }
+      }
     }
 
-    metadata {
-        annotations = {
-            "run.googleapis.com/ingress" = "internal-and-cloud-load-balancing"
-            "run.googleapis.com/launch-stage" = "BETA"
-        }
+    vpc_access {
+      egress = "ALL_TRAFFIC"
+      connector = var.connector_id
     }
 
-    traffic {
-        percent         = 100
-        latest_revision = true
+    scaling {
+        min_instance_count = 0
+        max_instance_count = 100
     }
-    
-    lifecycle {
-        ignore_changes = all
-    }
-}
 
-resource "google_cloud_run_service_iam_policy" "default" {
-    for_each = var.applications
-    location    = var.region
-    project     = var.project_id
-    service     = each.value.name
-    depends_on   = [google_cloud_run_service.default]
-    policy_data = data.google_iam_policy.noauth.policy_data
-}
+    labels = {}
 
-data "google_iam_policy" "noauth" {
-  binding {
-    role = "roles/run.invoker"
-    members = [
-      "allUsers",
-    ]
+  }
+
+  lifecycle {
+    //ignore_changes = all
   }
 }
