@@ -151,7 +151,7 @@ locals {
                 REDIS_DOMAIN_NAME="${module.memorystore.host}"
                 REDIS_PORT="6379"
                 DATABASE="firestore"
-                FEATURE_FLAGS="gcp.hub"
+                FEATURE_FLAGS="gcp,hub"
             }
             "secrets" = {
                 FIREBASE_PROJECT_ID="react_app_firebase_project_id"
