@@ -185,6 +185,8 @@ locals {
             hosts = ["*.publisher.eqbs.gcp.onsdigital.uk"]
             default_service = "publisher"
             path_rules = []
+            memory = "512Mi"
+            cpu = "1"
             envs = {}
             "secrets" = {}
         },
