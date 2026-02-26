@@ -13,7 +13,7 @@ resource "google_cloud_run_v2_service" "default" {
   invoker_iam_disabled = true
   deletion_protection = false
   ingress = "INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER"
-  launch_stage = "BETA"
+  launch_stage = "GA"
   template {
     service_account = google_service_account.cloud_run_service_account.email
     containers {
@@ -65,6 +65,6 @@ resource "google_cloud_run_v2_service" "default" {
   }
 
   lifecycle {
-    ignore_changes = all
+    //ignore_changes = all
   }
 }
