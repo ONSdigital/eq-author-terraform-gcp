@@ -4,6 +4,7 @@ locals {
         publisher = ["${var.domain_prefix}.publisher.eqbs.gcp.onsdigital.uk"]
         validator = ["${var.domain_prefix}.validator.eqbs.gcp.onsdigital.uk"]
         validator-ajv = ["${var.domain_prefix}.validator-ajv.eqbs.gcp.onsdigital.uk"]
+        registry = ["${var.domain_prefix}.registry.eqbs.gcp.onsdigital.uk"]
         launcher = ["${var.domain_prefix}.author-launcher.eqbs.gcp.onsdigital.uk"]
         runner = ["${var.domain_prefix}.author-runner.eqbs.gcp.onsdigital.uk"]
         extract-questions = ["${var.domain_prefix}.extract-questions.eqbs.gcp.onsdigital.uk"]
@@ -77,6 +78,22 @@ locals {
             envs = {
                 SURVEY_RUNNER_SCHEMA_URL="https://${var.domain_prefix}.author-runner.eqbs.gcp.onsdigital.uk"
                 SURVEY_RUNNER_URL="https://${var.domain_prefix}.author-runner.eqbs.gcp.onsdigital.uk"
+            }
+            "secrets" = {}
+        },
+        
+        "registry" = {
+            name = "eq-questionnaire-registry"
+            image = "${var.application_image_repository}/eq-questionnaire-registry:aae9dbf"
+            container_port = "8080"
+            hosts = ["*.registry.eqbs.gcp.onsdigital.uk"]
+            default_service = "registry"
+            path_rules = []
+            memory = "512Mi"
+            cpu = "1"
+            envs = {
+                REGISTRY_DATABASE_SOURCE="firestore"
+                PUBLISHER_URL="https://${var.domain_prefix}.author.eqbs.gcp.onsdigital.uk/convert/"
             }
             "secrets" = {}
         },
