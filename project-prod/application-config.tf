@@ -211,10 +211,10 @@ locals {
             hosts = ["*.validator.eqbs.gcp.onsdigital.uk"]
             default_service = "validator"
             path_rules = []
-            memory = "512Mi"
+            memory = "1Gi"
             cpu = "1"
             envs = {
-                AJV_HOST="https://${var.domain_prefix}.validator-ajv.eqbs.gcp.onsdigital.uk"
+                AJV_VALIDATOR_URL="https://${var.domain_prefix}.validator-ajv.eqbs.gcp.onsdigital.uk/validate"
             }
             "secrets" = {}
         }
