@@ -5,6 +5,9 @@ resource "google_compute_backend_service" "default" {
     group          = google_compute_region_network_endpoint_group.default[each.key].id
     capacity_scaler = "0.0"
   }
+  iap {
+    enabled = each.value.iap_enabled
+  }
   name                              = "${each.value.name}-service"
   protocol                          = "HTTP"
   connection_draining_timeout_sec   = "0"
