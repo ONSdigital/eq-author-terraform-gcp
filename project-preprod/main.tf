@@ -18,6 +18,7 @@ module "network" {
   project_id    = var.project_id
   region        = var.region
 }
+
 module "memorystore" {
   source        = "../memorystore"
   project_id    = var.project_id
