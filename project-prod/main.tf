@@ -19,9 +19,6 @@ module "network" {
   region        = var.region
 }
 
-data "google_project" "project" {
-}
-
 module "memorystore" {
   source        = "../memorystore"
   project_id    = var.project_id
@@ -32,7 +29,6 @@ module "memorystore" {
 module "applications" {
   source                        = "../applications"
   project_id                    = var.project_id
-  project_number                = data.google_project.project.number
   region                        = var.region
   applications                  = local.applications
   iap_applications              = local.iap_applications
