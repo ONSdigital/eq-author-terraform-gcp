@@ -105,7 +105,7 @@ locals {
             hosts = ["*.author.eqbs.gcp.onsdigital.uk","author.eqbs.gcp.onsdigital.uk"]
             default_service = "author"
             path_rules = [{
-                paths = ["/graphql","/signIn","/launch/*","/convert/*","/import","/export/*","/status"]
+                paths = ["/graphql","/signIn","/launch/*","/convert/*","/import","/export/*","/status","/republish"]
                 service = "author-api"
             }]
             memory = "512Mi"
@@ -148,6 +148,7 @@ locals {
                 RUNNER_SESSION_URL="https://${var.domain_prefix}.author-runner.eqbs.gcp.onsdigital.uk/session?token="
                 SURVEY_REGISTER_URL="https://${var.domain_prefix}.registry.dev.eq.ons.digital/submit/"
                 CORS_WHITELIST="https://${var.domain_prefix}.author.eqbs.gcp.onsdigital.uk"
+                VALIDATOR_URL="https://${var.domain_prefix}.validator.eqbs.gcp.onsdigital.uk/validate"
                 REDIS_DOMAIN_NAME="${module.memorystore.host}"
                 REDIS_PORT="6379"
                 DATABASE="firestore"
@@ -159,6 +160,10 @@ locals {
                 SUPPLEMENTARY_DATA_GATEWAY_AUDIENCE="SUPPLEMENTARY_DATA_GATEWAY_AUDIENCE"
                 CIR_PUBLISH_SCHEMA_GATEWAY="CIR_PUBLISH_SCHEMA_GATEWAY"
                 CIR_PUBLISH_SCHEMA_GATEWAY_AUDIENCE="CIR_PUBLISH_SCHEMA_GATEWAY_AUDIENCE"
+                CIR_PUBLISH_SCHEMA_GATEWAY_FIRST="CIR_PUBLISH_SCHEMA_GATEWAY_FIRST"
+                CIR_PUBLISH_SCHEMA_GATEWAY_AUDIENCE_FIRST="CIR_PUBLISH_SCHEMA_GATEWAY_AUDIENCE_FIRST"
+                CIR_PUBLISH_SCHEMA_GATEWAY_SECOND="CIR_PUBLISH_SCHEMA_GATEWAY_SECOND"
+                CIR_PUBLISH_SCHEMA_GATEWAY_AUDIENCE_SECOND="CIR_PUBLISH_SCHEMA_GATEWAY_AUDIENCE_SECOND"
             }
         },
 
@@ -218,5 +223,21 @@ locals {
             }
             "secrets" = {}
         }
+
+        "cims-ui" = {
+            name = "eq-cims-management-ui"
+            image = "${var.application_image_repository}/eq-cims-management-ui:ad10b77"
+            container_port = "5100"
+            hosts = ["*.cims-ui.eqbs.gcp.onsdigital.uk"]
+            default_service = "cims-ui"
+            path_rules = []
+            memory = "512Mi"
+            cpu = "1"
+            envs = {}
+            "secrets" = {
+                CIR_PUBLISH_SCHEMA_GATEWAY="CIR_PUBLISH_SCHEMA_GATEWAY"
+                CIR_PUBLISH_SCHEMA_GATEWAY_AUDIENCE="CIR_PUBLISH_SCHEMA_GATEWAY_AUDIENCE"
+            }
+        },
     }
 }
