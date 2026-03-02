@@ -21,8 +21,8 @@ resource "google_project_iam_member" "datastore_user" {
   member = "serviceAccount:${google_service_account.cloud_run_service_account.email}"
 }
 
-resource "google_project_iam_member" "iap_secured_web_app" {
-  project = var.project_id
+resource "google_service_account_iam_member" "iap_secured_web_app" {
+  service_account_id = "service-${var.project_number}@gcp-sa-iap.iam.gserviceaccount.com"
   role    = "roles/cloudrun.invoker"
   member  = "serviceAccount:service-${var.project_number}@gcp-sa-iap.iam.gserviceaccount.com"
 }
