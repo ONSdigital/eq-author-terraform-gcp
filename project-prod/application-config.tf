@@ -11,6 +11,8 @@ locals {
         cims-ui = ["${var.domain_prefix}.cims-ui.eqbs.gcp.onsdigital.uk"]
     }
     
+    iap_applications = toset(["cims-ui"])
+
     applications = {
         "runner" = {
             name = "eq-author-runner"

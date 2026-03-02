@@ -31,6 +31,7 @@ module "applications" {
   project_id                    = var.project_id
   region                        = var.region
   applications                  = local.applications
+  iap_applications              = local.iap_applications
   connector_id                  = module.network.vpc_connector_id
   depends_on                    = [module.network, module.memorystore]
 }
@@ -45,12 +46,12 @@ module "cloud-armour" {
 }
 
 module "load-balancer" {
-  source        = "../load-balancer"
-  project_id    = var.project_id
-  region        = var.region
-  domains       = local.domains
-  applications  = local.applications
-  depends_on    = [module.cloud-armour, module.applications]
+  source           = "../load-balancer"
+  project_id       = var.project_id
+  region           = var.region
+  domains          = local.domains
+  applications     = local.applications
+  depends_on       = [module.cloud-armour, module.applications]
 }
 
 module "dns" {

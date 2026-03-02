@@ -10,7 +10,9 @@ locals {
         extract-questions = ["${var.domain_prefix}.extract-questions.eqbs.gcp.onsdigital.uk"]
         cims-ui = ["${var.domain_prefix}.cims-ui.eqbs.gcp.onsdigital.uk"]
     }
-    
+
+    iap_applications = toset(["cims-ui"])
+
     applications = {
         "runner" = {
             name = "eq-author-runner"

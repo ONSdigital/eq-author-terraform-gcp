@@ -9,6 +9,7 @@ module "project-services" {
     "compute.googleapis.com",
     "iam.googleapis.com",
     "vpcaccess.googleapis.com",
+    "iap.googleapis.com",
   ]
 }
 

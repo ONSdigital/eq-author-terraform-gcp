@@ -14,6 +14,7 @@ resource "google_cloud_run_v2_service" "default" {
   deletion_protection = false
   ingress = "INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER"
   launch_stage = "GA"
+  iap_enabled = contains(var.iap_applications, each.key) ? true : false
   template {
     service_account = google_service_account.cloud_run_service_account.email
     containers {
@@ -67,4 +68,18 @@ resource "google_cloud_run_v2_service" "default" {
   lifecycle {
     //ignore_changes = all
   }
+}
+data "google_iam_policy" "admin" {
+  binding {
+    role = "roles/iap.httpsResourceAccessor"
+    members = [
+      "group:eq-services-prod@ons.gov.uk",
+    ]
+  }
+}
+
+resource "google_iap_web_cloud_run_service_iam_policy" "policy" {
+  for_each = var.iap_applications
+  cloud_run_service_name = google_cloud_run_v2_service.default[each.key].name
+  policy_data = data.google_iam_policy.admin.policy_data
 }
