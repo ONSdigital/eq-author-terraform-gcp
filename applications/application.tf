@@ -69,10 +69,17 @@ resource "google_cloud_run_v2_service" "default" {
     //ignore_changes = all
   }
 }
+data "google_iam_policy" "admin" {
+  binding {
+    role = "roles/iap.httpsResourceAccessor"
+    members = [
+      "group:eq-services-prod@ons.gov.uk",
+    ]
+  }
+}
 
-resource "google_cloud_run_service_iam_member" "member" {
+resource "google_iap_web_cloud_run_service_iam_policy" "policy" {
   for_each = var.iap_applications
-  service = google_cloud_run_v2_service.default[each.key].name
-  role = "roles/iap.httpsResourceAccessor"
-  member = "group:eq-services-prod@ons.gov.uk"
+  cloud_run_service_name = google_cloud_run_v2_service.default[each.key].name
+  policy_data = data.google_iam_policy.admin.policy_data
 }
