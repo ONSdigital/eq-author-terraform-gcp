@@ -8,6 +8,7 @@ locals {
         launcher = ["${var.domain_prefix}.author-launcher.eqbs.gcp.onsdigital.uk"]
         runner = ["${var.domain_prefix}.author-runner.eqbs.gcp.onsdigital.uk"]
         extract-questions = ["${var.domain_prefix}.extract-questions.eqbs.gcp.onsdigital.uk"]
+        cims-ui = ["${var.domain_prefix}.cims-ui.eqbs.gcp.onsdigital.uk"]
     }
     
     applications = {
