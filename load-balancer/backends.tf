@@ -6,7 +6,7 @@ resource "google_compute_backend_service" "default" {
     capacity_scaler = "0.0"
   }
   iap {
-    enabled = each.value.iap_enabled
+    enabled = contains(var.iap_applications, each.key) ? true : false
   }
   name                              = "${each.value.name}-service"
   protocol                          = "HTTP"

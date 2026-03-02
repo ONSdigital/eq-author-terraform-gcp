@@ -12,7 +12,7 @@ locals {
     }
     
     iap_applications = toset(["cims-ui"])
-    
+
     applications = {
         "runner" = {
             name = "eq-author-runner"
@@ -23,7 +23,6 @@ locals {
             path_rules = []
             memory = "1Gi"
             cpu = "1"
-            iap_enabled = false
             envs = {
                 EQ_STORAGE_BACKEND="datastore"
                 EQ_REDIS_HOST="${module.memorystore.host}"
@@ -79,7 +78,6 @@ locals {
             path_rules = []
             memory = "512Mi"
             cpu = "1"
-            iap_enabled = false
             envs = {
                 SURVEY_RUNNER_SCHEMA_URL="https://${var.domain_prefix}.author-runner.eqbs.gcp.onsdigital.uk"
                 SURVEY_RUNNER_URL="https://${var.domain_prefix}.author-runner.eqbs.gcp.onsdigital.uk"
@@ -96,7 +94,6 @@ locals {
             path_rules = []
             memory = "512Mi"
             cpu = "1"
-            iap_enabled = false
             envs = {
                 REGISTRY_DATABASE_SOURCE="firestore"
                 PUBLISHER_URL="https://${var.domain_prefix}.author.eqbs.gcp.onsdigital.uk/convert/"
@@ -116,7 +113,6 @@ locals {
             }]
             memory = "512Mi"
             cpu = "1"
-            iap_enabled = false
             "envs" = {
                 REACT_APP_API_URL="/graphql"
                 REACT_APP_SIGN_IN_URL="/signIn"
@@ -147,7 +143,6 @@ locals {
             path_rules = []
             memory = "512Mi"
             cpu = "1"
-            iap_enabled = false
             envs = {
                 ALLOWED_EMAIL_LIST="@ons.gov.uk,@ext.ons.gov.uk,@nisra.gov.uk"
                 ENABLE_IMPORT="true"
@@ -184,7 +179,6 @@ locals {
             path_rules = []
             memory = "512Mi"
             cpu = "1"
-            iap_enabled = false
             envs = {
                 AUTHOR_SCHEMA_URL="https://prod-author.prod.eq.ons.digital/export/"
                 RUNNER_SCHEMA_URL="https://prod-publisher.prod.eq.ons.digital/publish/"
@@ -201,7 +195,6 @@ locals {
             path_rules = []
             memory = "512Mi"
             cpu = "1"
-            iap_enabled = false
             envs = {}
             "secrets" = {}
         },
@@ -215,7 +208,6 @@ locals {
             path_rules = []
             memory = "512Mi"
             cpu = "1"
-            iap_enabled = false
             envs = {}
             "secrets" = {}
         },
@@ -229,7 +221,6 @@ locals {
             path_rules = []
             memory = "1Gi"
             cpu = "1"
-            iap_enabled = false
             envs = {
                 AJV_VALIDATOR_URL="https://${var.domain_prefix}.validator-ajv.eqbs.gcp.onsdigital.uk/validate"
             }
@@ -245,7 +236,6 @@ locals {
             path_rules = []
             memory = "512Mi"
             cpu = "1"
-            iap_enabled = true
             envs = {}
             "secrets" = {
                 CIR_PUBLISH_SCHEMA_GATEWAY="CIR_PUBLISH_SCHEMA_GATEWAY"
