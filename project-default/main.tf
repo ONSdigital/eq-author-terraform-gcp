@@ -29,6 +29,7 @@ module "memorystore" {
 module "applications" {
   source                        = "../applications"
   project_id                    = var.project_id
+  project_number                = module.network.project_number
   region                        = var.region
   applications                  = local.applications
   iap_applications              = local.iap_applications
