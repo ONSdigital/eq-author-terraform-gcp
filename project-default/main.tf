@@ -45,12 +45,13 @@ module "cloud-armour" {
 }
 
 module "load-balancer" {
-  source        = "../load-balancer"
-  project_id    = var.project_id
-  region        = var.region
-  domains       = local.domains
-  applications  = local.applications
-  depends_on    = [module.cloud-armour, module.applications]
+  source           = "../load-balancer"
+  project_id       = var.project_id
+  region           = var.region
+  domains          = local.domains
+  applications     = local.applications
+  iap_applications = local.iap_applications
+  depends_on       = [module.cloud-armour, module.applications]
 }
 
 module "dns" {

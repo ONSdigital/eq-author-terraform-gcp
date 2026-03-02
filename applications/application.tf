@@ -14,6 +14,7 @@ resource "google_cloud_run_v2_service" "default" {
   deletion_protection = false
   ingress = "INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER"
   launch_stage = "GA"
+  iap_enabled = each.value.iap_enabled
   template {
     service_account = google_service_account.cloud_run_service_account.email
     containers {
