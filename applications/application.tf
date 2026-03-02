@@ -69,3 +69,10 @@ resource "google_cloud_run_v2_service" "default" {
     //ignore_changes = all
   }
 }
+
+resource "google_cloud_run_service_iam_member" "member" {
+  for_each = var.iap_applications
+  service = google_cloud_run_v2_service.default[each.key].name
+  role = "roles/iap.httpsResourceAccessor"
+  member = "group:eq-services-prod@ons.gov.uk"
+}
