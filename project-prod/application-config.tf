@@ -150,7 +150,7 @@ locals {
                 CONVERSION_URL="https://${var.domain_prefix}.publisher.eqbs.gcp.onsdigital.uk/publish/"
                 RUNNER_SESSION_URL="https://${var.domain_prefix}.author-runner.eqbs.gcp.onsdigital.uk/session?token="
                 SURVEY_REGISTER_URL="https://${var.domain_prefix}.registry.dev.eq.ons.digital/submit/"
-                CORS_WHITELIST="https://${var.domain_prefix}.author.eqbs.gcp.onsdigital.uk"
+                CORS_WHITELIST="https://${var.domain_prefix}.author.eqbs.gcp.onsdigital.uk,https://prod.author.eqbs.gcp.onsdigital.uk"
                 VALIDATOR_URL="https://${var.domain_prefix}.validator.eqbs.gcp.onsdigital.uk/validate"
                 REDIS_DOMAIN_NAME="${module.memorystore.host}"
                 REDIS_PORT="6379"
