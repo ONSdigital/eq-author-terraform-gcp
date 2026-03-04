@@ -116,7 +116,7 @@ locals {
             "envs" = {
                 REACT_APP_API_URL="/graphql"
                 REACT_APP_SIGN_IN_URL="/signIn"
-                REACT_APP_LAUNCH_URL="/launch"
+                REACT_APP_LAUNCH_URL="https://author.eqbs.gcp.onsdigital.uk/launch"
                 REACT_APP_FEATURE_FLAGS="pipeCalculatedSummary,hub,contactDetails,submissionPage,enableCountCondition,removedThemes,lists,gcp,dataset,repeatingIndividualAnswers,publishPage"
                 REACT_APP_VALID_EMAIL_DOMAINS="@ons.gov.uk,@ext.ons.gov.uk"
                 REACT_APP_ORGANISATION_ABBR="ONS"
