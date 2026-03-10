@@ -180,8 +180,8 @@ locals {
             memory = "512Mi"
             cpu = "1"
             envs = {
-                AUTHOR_SCHEMA_URL="https://prod-author.prod.eq.ons.digital/export/"
-                RUNNER_SCHEMA_URL="https://prod-publisher.prod.eq.ons.digital/publish/"
+                AUTHOR_SCHEMA_URL="https://https://${var.domain_prefix}.author.eqbs.gcp.onsdigital.uk/export/"
+                RUNNER_SCHEMA_URL="https://https://${var.domain_prefix}.publisher.eqbs.gcp.onsdigital.uk/publish/"
             }
             "secrets" = {}
         },
